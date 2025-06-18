@@ -1,3 +1,17 @@
+:root {
+  --theme-color-primary: #c09960;
+  --theme-color-light: #d9bA8c; /* Lighter shade of theme color */
+  --theme-color-dark: #a77f4b;  /* Darker shade of theme color */
+  --text-color-on-primary: #ffffff;
+  --text-color-on-light: #333333;
+  --text-color-dark: #333333;
+  --text-color-light: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(0, 0, 0, 0.1);
+  --info-bg: rgba(0, 0, 0, 0.7);
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,12 +20,14 @@
 
 body {
   font-family: "Arial", sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #333;
+  background: var(--theme-color-light);
+  color: var(--text-color-dark);
   overflow-x: hidden;
+  font-size: 16px; /* Base font size */
 }
 
 .container {
+  width: 100%; /* Allow container to shrink */
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
@@ -20,29 +36,95 @@ body {
 .header {
   text-align: center;
   margin-bottom: 3rem;
-  color: white;
+  color: var(--text-color-on-primary);
+  background-color: var(--theme-color-primary);
+  padding: 2rem;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .header h1 {
   font-size: 2.5rem;
   font-weight: 300;
   margin-bottom: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 3px var(--shadow-color);
 }
 
 .header p {
   font-size: 1.1rem;
   opacity: 0.9;
+  margin-bottom: 1rem; /* Add margin below paragraph for search bar */
+}
+
+.filters-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  justify-content: center;
+  gap: 1rem; /* Space between search bar and filter dropdown */
+  margin: 0 auto; /* Center the container if it's narrower than header */
+  max-width: 700px; /* Max width for the filters area */
+}
+
+#searchBar {
+  display: block;
+  /* width: 100%; remove to allow flex-grow to manage width */
+  flex-grow: 1; /* Allow search bar to take available space */
+  min-width: 200px; /* Minimum width before wrapping/shrinking */
+  max-width: 400px;
+  margin: 0; /* Remove auto margin, handled by flex container */
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--theme-color-dark);
+  background-color: var(--theme-color-light);
+  color: var(--text-color-dark);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#categoryFilter {
+  display: block;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--theme-color-dark);
+  background-color: var(--theme-color-light);
+  color: var(--text-color-dark);
+  outline: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: 180px; /* Ensure it's wide enough for "All Categories" */
+  flex-basis: 180px; /* Base width for flex item */
+  flex-grow: 0.5; /* Allow to grow, but less than search */
+  max-width: 250px;
+}
+
+#categoryFilter:focus {
+  border-color: var(--theme-color-primary);
+  box-shadow: 0 0 8px rgba(var(--theme-color-primary), 0.5);
+}
+
+
+#searchBar:focus {
+  border-color: var(--theme-color-primary);
+  box-shadow: 0 0 8px rgba(var(--theme-color-primary), 0.5);
+}
+
+/* Placeholder text color for search bar */
+#searchBar::placeholder {
+  color: var(--text-color-dark);
+  opacity: 0.7;
 }
 
 .product-slider {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--theme-color-primary);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 32px var(--shadow-color);
+  border: 1px solid var(--border-color);
+  width: 100%; /* Ensure slider takes full width of container */
 }
 
 .slider-container {
@@ -53,12 +135,12 @@ body {
 
 .product-card {
   min-width: 100%;
-  height: 70vh;
+  height: 70vh; /* Default height */
+  max-height: 600px; /* Max height for very tall screens */
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.05);
 }
 
 .product-viewer {
@@ -74,39 +156,49 @@ body {
   top: 2rem;
   left: 2rem;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--info-bg);
   padding: 1rem 1.5rem;
   border-radius: 10px;
-  backdrop-filter: blur(10px);
-  color: white;
+  color: var(--text-color-light);
+  max-width: calc(100% - 4rem); /* Prevent overflow from card edges */
 }
 
 .product-info h3 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   font-weight: 500;
+  word-wrap: break-word; /* Wrap long product names */
 }
 
 .product-info p {
   font-size: 0.9rem;
   opacity: 0.8;
+  margin-bottom: 0.25rem;
+  word-wrap: break-word; /* Wrap long descriptions */
+}
+
+.product-category {
+  font-size: 0.8rem !important;
+  opacity: 0.7 !important;
+  font-style: italic;
+  margin-top: 0.5rem;
 }
 
 .slider-nav {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem; /* Slightly adjusted */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem; /* Slightly increased gap */
   z-index: 10;
 }
 
 .nav-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px; /* Slightly smaller dots */
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
@@ -114,7 +206,7 @@ body {
 }
 
 .nav-dot.active {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--text-color-on-primary);
   transform: scale(1.2);
 }
 
@@ -123,35 +215,40 @@ body {
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
+  width: calc(100% - 1rem); /* Allow arrows to be near edges */
+  display: flex;
+  justify-content: space-between;
+  left: 0.5rem; /* Position the container of arrows */
+  pointer-events: none; /* Let clicks pass through to arrows */
 }
 
 .arrow {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 45px; /* Slightly smaller arrows */
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  color: white;
-  font-size: 1.2rem;
+  color: var(--text-color-on-primary);
+  font-size: 1.1rem; /* Slightly smaller font */
+  pointer-events: auto; /* Enable clicks on arrows */
 }
 
 .arrow:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(1.1) translateY(-50%); /* Keep Y transform from parent */
 }
-
+/* Remove individual positioning for prev/next from .slider-arrows context */
 .arrow.prev {
-  left: 1rem;
+  /* left: 1rem; */
 }
 
 .arrow.next {
-  right: 1rem;
+  /* right: 1rem; */
 }
 
 .controls-panel {
@@ -159,7 +256,37 @@ body {
   top: 1rem;
   right: 1rem;
   z-index: 1000;
+  max-width: calc(100vw - 2rem); /* Ensure it doesn't overflow viewport */
 }
+
+.dg.main {
+  background-color: var(--theme-color-light) !important;
+  color: var(--text-color-dark) !important;
+  border: 1px solid var(--theme-color-dark);
+  max-width: 100% !important; /* Allow dat.gui to shrink */
+}
+.dg.main .closed li.title {
+  background-color: var(--theme-color-primary) !important;
+  color: var(--text-color-on-primary) !important;
+}
+.dg li.title {
+  background: var(--theme-color-dark) !important;
+  color: var(--text-color-on-primary) !important;
+}
+.dg ul { /* Make sure lists inside dat.gui can scroll if too tall */
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.dg .cr.function:hover, .dg .cr.boolean:hover {
+  background: var(--theme-color-light) !important;
+}
+.dg .c input[type=text] {
+  background: var(--theme-color-light) !important;
+  color: var(--text-color-dark) !important;
+  border: 1px solid var(--theme-color-dark) !important;
+  width: auto !important; /* Allow text inputs to shrink */
+}
+
 
 .loading-screen {
   position: fixed;
@@ -167,26 +294,32 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--theme-color-primary);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  color: white;
+  color: var(--text-color-on-primary);
   transition: opacity 0.5s ease;
+  padding: 1rem; /* Add padding for text content */
+}
+.loading-screen h2 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+.loading-screen p {
+  font-size: 1rem;
+  text-align: center;
 }
 
-.loading-screen.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
 
 .loader {
   width: 50px;
   height: 50px;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  border-top: 3px solid white;
+  border-top: 3px solid var(--text-color-on-primary);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 1rem;
@@ -202,54 +335,178 @@ body {
   }
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness - General adjustments for up to tablet size */
 @media (max-width: 768px) {
+  body {
+    font-size: 15px; /* Slightly smaller base font */
+  }
   .container {
     padding: 1rem;
   }
 
+  .header {
+    padding: 1.5rem 1rem; /* Adjust padding */
+    margin-bottom: 2rem; /* Reduce margin */
+    border-radius: 0 0 15px 15px;
+  }
   .header h1 {
     font-size: 2rem;
   }
+  .header p {
+    font-size: 1rem;
+  }
 
   .product-card {
-    height: 60vh;
+    height: 60vh; /* Reduce height */
+    max-height: 500px;
   }
 
   .product-info {
     top: 1rem;
     left: 1rem;
+    right: 1rem; /* Allow it to span more width */
     padding: 0.8rem 1rem;
+    max-width: calc(100% - 2rem); /* Adjust max-width */
+  }
+  .product-info h3 {
+    font-size: 1.1rem;
+  }
+  .product-info p {
+    font-size: 0.85rem;
+  }
+  .product-category {
+    font-size: 0.75rem !important;
+  }
+
+  .slider-nav {
+    bottom: 1rem;
+  }
+  .nav-dot {
+    width: 8px;
+    height: 8px;
   }
 
   .arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
+    width: 35px; /* Smaller arrows */
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  .slider-arrows { /* Adjust container for smaller arrows */
+    left: 0.25rem;
+    width: calc(100% - 0.5rem);
   }
 
+
   .controls-panel {
-    position: relative;
+    position: relative; /* Change from fixed to relative */
     top: auto;
     right: auto;
-    margin-top: 2rem;
+    margin: 1.5rem auto 0;
+    width: 100%; /* Allow it to take full width */
+    max-width: 320px; /* But cap it for very wide small screens if centered */
+    display: flex;
+    justify-content: center;
+  }
+  .dg.main {
+    float: none !important; /* Override dat.gui's float */
+    margin: 0 !important;
+  }
+  .dg ul { /* Allow more height for GUI on mobile if needed */
+    max-height: 60vh;
   }
 }
 
 /* Touch indicators */
 .touch-hint {
   position: absolute;
-  bottom: 4rem;
-  right: 2rem;
-  color: rgba(255, 255, 255, 0.6);
+  bottom: 3.5rem; /* Adjusted for smaller nav dots */
+  right: 1rem;
+  color: var(--text-color-dark);
   font-size: 0.9rem;
   z-index: 10;
+  opacity: 0.7;
+  display: none; /* Hidden by default, shown only on touch devices via JS if desired, or always for mobile*/
 }
 
 @media (max-width: 768px) {
   .touch-hint {
-    bottom: 3rem;
+    display: block; /* Show touch hint on smaller screens */
+    bottom: 2.5rem; /* Adjust based on nav dot size */
     right: 1rem;
     font-size: 0.8rem;
   }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .header h1 {
+    font-size: 1.6rem;
+  }
+  .header p {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem; /* Adjust margin for smaller screens */
+  }
+  .filters-container {
+    flex-direction: column; /* Stack filter items vertically */
+    gap: 0.75rem;
+  }
+  #searchBar, #categoryFilter {
+    width: 100%; /* Make them full width of the centered container */
+    max-width: 300px; /* Cap their width even on mobile when stacked */
+    font-size: 0.9rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+
+  .product-card {
+    height: 55vh; /* Further reduce height */
+  }
+
+  .product-info {
+    padding: 0.6rem 0.8rem;
+  }
+   .product-info h3 {
+    font-size: 1rem;
+  }
+  .product-info p {
+    font-size: 0.8rem;
+  }
+  .product-category {
+    font-size: 0.7rem !important;
+  }
+
+  .slider-arrows { /* Give a bit more space from edge */
+    left: 0.1rem;
+    width: calc(100% - 0.2rem);
+  }
+  .arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+}
+
+.hidden-card {
+  display: none !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.no-results-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-color-on-primary); /* Assuming it's on a themed background */
+  font-size: 1.2rem;
+  width: 100%;
+  position: absolute; /* Position it within the product-slider */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5; /* Below product-info but above product-viewer if needed */
 }

@@ -7,6 +7,7 @@ export const products = [
     roughness: 0.6,   // Used by createCupModel fallback
     metalness: 0.0,   // Used by createCupModel fallback
     description: "A classic white ceramic mug, perfect for your morning coffee.",
+    category: "Household Items",
   },
   {
     name: "Modern Black Tumbler",
@@ -16,6 +17,7 @@ export const products = [
     roughness: 0.3,   // Used by createCupModel fallback
     metalness: 0.7,   // Used by createCupModel fallback (example for a more metallic look)
     description: "Sleek and modern black tumbler for your beverages on the go.",
+    category: "Household Items",
   },
   {
     name: "Eco-Friendly Bamboo Cup",
@@ -25,6 +27,7 @@ export const products = [
     roughness: 0.8,
     metalness: 0.0,
     description: "Sustainable and stylish bamboo cup.",
+    category: "Household Items",
   },
   {
     name: "Glass Tea Infuser",
@@ -36,6 +39,7 @@ export const products = [
     transparent: true, // Specific to glass
     opacity: 0.7,      // Specific to glass
     description: "Elegant glass tea infuser for the perfect brew.",
+    category: "Household Items",
   },
   {
     name: "Stainless Steel Travel Mug",
@@ -45,5 +49,26 @@ export const products = [
     roughness: 0.2,
     metalness: 0.8,
     description: "Durable stainless steel travel mug to keep your drinks hot or cold.",
+    category: "Household Items",
   },
+  {
+    name: 'Stylish T-Shirt',
+    image: "https://via.placeholder.com/150/555555/FFFFFF?Text=T-Shirt", // Placeholder image
+    description: 'Comfortable and modern design',
+    category: 'Fashion',
+    modelPath: null, // Will use fallback model
+    color: 0x555555,
+    roughness: 0.8,
+    metalness: 0.1
+  },
+  {
+    name: 'Wireless Headphones',
+    image: "https://via.placeholder.com/150/333333/FFFFFF?Text=Headphones", // Placeholder image
+    description: 'High-fidelity audio',
+    category: 'Electronics',
+    modelPath: null, // Will use fallback model
+    color: 0x333333,
+    roughness: 0.5,
+    metalness: 0.5
+  }
 ];
